@@ -1,14 +1,43 @@
 <template>
-  <div class="home">
-    <p>Login Index</p>
+  <div class="login">
+    <h1>Login</h1>
+    <login-form @onLogin="handleLogin" ></login-form>
   </div>
 </template>
 
+<!--
+<style lang="postcss" scoped>
+  .login{
+    @apply flex my-10;
+  }
+</style>
+-->
+
 <script>
+import { useRouter } from 'vue-router'
+import LoginForm from '@/components/LoginForm'
+import { onMounted } from 'vue'
 
 export default {
   name: 'LoginView',
-  components: {
+  components: { LoginForm },
+  setup () {
+    const router = useRouter()
+
+    onMounted(() => {
+      const token = window.localStorage.getItem('token')
+      if (token) {
+        router.push({ name: 'dashboard' })
+      }
+    })
+
+    function handleLogin () {
+      console.log('handleLogin')
+    }
+
+    return {
+      handleLogin
+    }
   }
 }
 </script>

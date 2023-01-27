@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <p>Home Index</p>
+    <h1>Home</h1>
+    <p class="text-green">Home Index</p>
+    <p class="text-brand-main font-black">Home Index</p>
   </div>
 </template>
 

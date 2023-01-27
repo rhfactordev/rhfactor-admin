@@ -10,19 +10,15 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/index.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/dashboard/index.vue'),
+    meta: {
+      hasAuth: true
+    }
   }
-  // , {
-  //   path: '/dashboard',
-  //   name: 'about',
-  //   component: () => import('@/views/AboutView.vue'),
-  //   meta: {
-  //     hasAuth: true
-  //   }
-  // }
-  // , {
-  //   path: '/:pathMatch(.*)',
-  //   redirect: { name: 'home' }
-  // }
 ]
 
 const router = createRouter({
