@@ -119,12 +119,14 @@ export default {
         })
 
         if (!errors) {
-          console.log('deu certo login', data)
-          window.localStorage.setItem('token', data.access_token)
-          router.push({ name: 'dashboard' })
-          state.isLoading = false
-          // modal.close()
-          return
+          // console.log('deu certo login', data)
+          if (data.roles.filter(it => it === 'ADMIN').length === 1) {
+            window.localStorage.setItem('token', data.access_token)
+            router.push({ name: 'dashboard' })
+            state.isLoading = false
+            // modal.close()
+            return
+          }
         }
 
         if (errors.status === 404) {
