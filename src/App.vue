@@ -9,6 +9,7 @@
 <script>
 import { useRouter, useRoute } from 'vue-router'
 import { watch } from 'vue'
+import { tokenKey } from '@/config'
 
 export default {
   setup () {
@@ -17,7 +18,7 @@ export default {
 
     watch(() => route.path, async () => {
       if (route.meta.hasAuth) {
-        const token = window.localStorage.getItem('token')
+        const token = window.localStorage.getItem(tokenKey)
         if (!token) {
           router.push({ name: 'Home' })
           // return

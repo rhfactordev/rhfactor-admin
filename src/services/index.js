@@ -3,6 +3,7 @@ import AuthService from './auth'
 import UserService from './user'
 import { setGlobalLoading } from '../store/global'
 import router from '../router'
+import { tokenKey } from '@/config'
 
 const API_ENVS = {
   production: 'https://rhfactor-api.herokuapp.com',
@@ -16,7 +17,7 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(config => {
   setGlobalLoading(true)
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem(tokenKey)
 
   if (token) {
     config.headers.common.Authorization = `Bearer ${token}`

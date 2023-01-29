@@ -17,6 +17,7 @@
 import { useRouter } from 'vue-router'
 import LoginForm from '@/components/LoginForm'
 import { onMounted } from 'vue'
+import { tokenKey } from '@/config'
 
 export default {
   name: 'LoginView',
@@ -25,7 +26,7 @@ export default {
     const router = useRouter()
 
     onMounted(() => {
-      const token = window.localStorage.getItem('token')
+      const token = window.localStorage.getItem(tokenKey)
       if (token) {
         router.push({ name: 'dashboard' })
       }
