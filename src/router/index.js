@@ -18,6 +18,14 @@ const routes = [
     meta: {
       hasAuth: true
     }
+  },
+  {
+    path: '/config/astral/signs',
+    name: 'signs',
+    component: () => import('@/views/config/astral/signs/index.vue'),
+    meta: {
+      hasAuth: true
+    }
   }
 ]
 
