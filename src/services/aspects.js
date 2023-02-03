@@ -1,11 +1,12 @@
-export default httpClient => ({
+import { defaultPagination } from '@/config'
 
-  list: async ({ page = 0, size = 10, sort }) => {
-    let uri = `/admin/v1/aspects?page=${page}&size=${size}`
+export default httpClient => ({
+  list: async ({ page, size, sort } = defaultPagination) => {
+    const query = { page, size }
     if (sort) {
-      uri += `&sort=${sort}`
+      query.sort = sort
     }
-    const response = await httpClient.get(uri)
+    const response = await httpClient.get('/admin/v1/aspects', { params: query })
     return {
       data: response.data
     }

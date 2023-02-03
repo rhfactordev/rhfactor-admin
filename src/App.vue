@@ -1,4 +1,5 @@
 <template>
+  <modal-factory />
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -13,14 +14,19 @@
   <hr class="mb-10"/>
 
   <router-view/>
+
 </template>
 
 <script>
 import { useRouter, useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { tokenKey } from '@/config'
+import ModalFactory from '@/components/ModalFactory/index.vue'
 
 export default {
+  components: {
+    ModalFactory
+  },
   setup () {
     const router = useRouter()
     const route = useRoute()

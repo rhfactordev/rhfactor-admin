@@ -5,11 +5,15 @@
         <th v-for="(h,i) in computedHeaders" :key="i">
           {{ h }}
         </th>
+        <th v-if="hasAction">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(c,j) in content" :key="j" >
         <td v-for="(h,i) in computedHeaders" :key="i">{{c[h]}}</td>
+        <slot v-if="hasAction" name="action" :id="c[keyField]" >
+          <td>Action action 2</td>
+        </slot>
       </tr>
     </tbody>
     <tfoot v-if="hasPagination">
@@ -24,7 +28,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'TableList',
   props: {
@@ -38,6 +41,10 @@ export default {
     totalPages: {
       type: Number,
       default: () => { return 1 }
+    },
+    keyField: {
+      type: String,
+      default: () => { return 'id' }
     }
   },
   computed: {
@@ -49,6 +56,9 @@ export default {
     },
     hasPagination () {
       return this.totalPages > 1
+    },
+    hasAction () {
+      return true
     }
   },
   setup (props, { emit }) {
