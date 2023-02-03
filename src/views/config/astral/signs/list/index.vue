@@ -11,7 +11,7 @@
 
 <script>
 
-import TableList from '@/components/TableList'
+import TableList from '@/components/TableList/index.vue'
 import useModal from '@/hooks/useModal'
 
 export default {

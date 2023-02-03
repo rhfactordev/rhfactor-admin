@@ -22,7 +22,15 @@ const routes = [
   {
     path: '/config/astral/signs',
     name: 'signs',
-    component: () => import('@/views/config/astral/signs/index.vue'),
+    component: () => import('@/views/config/astral/signs/list/index.vue'),
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
+    path: '/config/astral/signs/add',
+    name: 'signAdd',
+    component: () => import('@/views/config/astral/signs/form/index.vue'),
     meta: {
       hasAuth: true
     }
