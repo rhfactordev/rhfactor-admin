@@ -1,9 +1,10 @@
 import axios from 'axios'
-import AuthService from './auth'
-import UserService from './user'
-import { setGlobalLoading } from '../store/global'
 import router from '../router'
 import { tokenKey } from '@/config'
+import { setGlobalLoading } from '../store/global'
+import AuthService from './auth'
+import UserService from './user'
+import AspectService from './aspects'
 
 const API_ENVS = {
   production: 'https://rhfactor-api.herokuapp.com',
@@ -48,5 +49,6 @@ httpClient.interceptors.response.use((response) => {
 
 export default {
   auth: AuthService(httpClient),
-  user: UserService(httpClient)
+  user: UserService(httpClient),
+  aspect: AspectService(httpClient)
 }
