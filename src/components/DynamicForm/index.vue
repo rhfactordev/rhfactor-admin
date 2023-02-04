@@ -1,13 +1,13 @@
 <template>
-  <VeeForm v-slot="{ handleSubmit }" >
-    <form @submit="handleSubmit($event, onSubmitMethod)" :method="schema.action.method" >
+
+   <VeeForm @submit="submitForm">
       <div
-          v-for="{ as, name, label, children, ...attrs } in schema.fields"
+          v-for="{ as, name, label, children, ...attrs } in computedFields"
           :key="name"
           class="mb-3"
       >
         <label :for="name" class="form-label">{{ label }}</label>
-        <Field :as="as" :id="name" :name="name" v-bind="attrs">
+        <Field :as="as" class="form-control" :id="name" :name="name" v-bind="attrs">
           <template v-if="children && children.length">
             <component
                 v-for="({ tag, text, ...childAttrs }, idx) in children"
@@ -21,17 +21,14 @@
         </Field>
         <ErrorMessage :name="name" />
       </div>
-
       <div class="d-grid gap-2">
-        <button :key="label" v-for="{ type, label } in schema.actions"  class="btn btn-primary" :type="type">{{ label }}</button>
+        <button type="submit">Salvar</button>
       </div>
-    </form>
   </VeeForm>
 </template>
 
 <script>
-import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
-
+import { Field, Form as VeeForm, ErrorMessage } from 'vee-validate'
 export default {
   name: 'DynamicForm',
   components: {
@@ -43,6 +40,10 @@ export default {
     schema: {
       type: Object,
       required: true
+    },
+    fieldData: {
+      type: Object,
+      required: false
     }
   },
   data () {
@@ -50,21 +51,17 @@ export default {
       loading: false
     }
   },
-  methods: {
-    onSubmitMethod (values) {
-      if (this.loading) {
-        return
+  computed: {
+    computedFields () {
+      if (this.fieldData == null) {
+        return this.schema.fields
       }
-
-      this.loading = true
-      this.schema.action.path(values).then(res => {
-        console.log('onSuccess', values)
-      }).catch(err => {
-        console.log('onError', err)
-      }).finally(() => {
-        // console.log('finally')
-        this.loading = false
-      })
+      return this.schema.fields.map(item => ({ ...item, value: this.fieldData[item.name] }))
+    }
+  },
+  methods: {
+    submitForm (values) {
+      console.log('submitForm', values)
     }
   }
 }
