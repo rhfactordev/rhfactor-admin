@@ -12,7 +12,7 @@
             <component
                 v-for="({ tag, text, ...childAttrs }, idx) in children"
                 :key="idx"
-                :is="tag"
+                :is="tag?tag:'option'"
                 v-bind="childAttrs"
             >
               {{ text }}
