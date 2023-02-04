@@ -1,6 +1,6 @@
 <template>
-
-   <VeeForm @submit="submitForm">
+  <!-- v-slot="{ values }" -->
+   <VeeForm>
       <div
           v-for="{ as, name, label, children, ...attrs } in computedFields"
           :key="name"
@@ -57,11 +57,6 @@ export default {
         return this.schema.fields
       }
       return this.schema.fields.map(item => ({ ...item, value: this.fieldData[item.name] }))
-    }
-  },
-  methods: {
-    submitForm (values) {
-      console.log('submitForm', values)
     }
   }
 }
