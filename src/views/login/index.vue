@@ -1,7 +1,18 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <login-form @onLogin="handleLogin" ></login-form>
+  <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card align-middle bg-light p-4">
+        <div class="card-body">
+          <div class="text-center">
+            <router-link to="/">
+              Logo
+            </router-link>
+            <h1 class="text-white h3 my-3">Login</h1>
+          </div>
+          <dynamic-form :schema="schema" action-label="Login" @submit="handleLogin"></dynamic-form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,30 +25,54 @@
 -->
 
 <script>
+import DynamicForm from '@/components/DynamicForm/index.vue'
+import * as Yup from 'yup'
+import service from '@/services'
+import useLocalStorage from '@/hooks/useLocalStorage'
 import { useRouter } from 'vue-router'
-import LoginForm from '@/components/LoginForm'
-import { onMounted } from 'vue'
-import { tokenKey } from '@/config'
 
 export default {
   name: 'LoginView',
-  components: { LoginForm },
+  components: { DynamicForm },
   setup () {
+    const localStorage = useLocalStorage()
     const router = useRouter()
 
-    onMounted(() => {
-      const token = window.localStorage.getItem(tokenKey)
-      if (token) {
-        router.push({ name: 'dashboard' })
-      }
-    })
+    const handleLogin = async (credentials) => {
+      const { data, errors } = await service.auth.login({
+        username: credentials.username,
+        password: credentials.password
+      })
 
-    function handleLogin () {
-      console.log('handleLogin')
+      if (!errors) {
+        localStorage.persist(data.access_token)
+        router.push({ name: 'dashboard' })
+        return
+      }
+
+      console.log(errors)
+    }
+
+    const schema = {
+      fields: [
+        {
+          label: 'E-mail',
+          name: 'username',
+          as: 'input',
+          rules: Yup.string().required()
+        },
+        {
+          label: 'Senha',
+          name: 'password',
+          as: 'input',
+          type: 'password',
+          rules: Yup.string().required()
+        }
+      ]
     }
 
     return {
-      handleLogin
+      handleLogin, schema
     }
   }
 }
