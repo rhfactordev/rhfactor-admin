@@ -1,6 +1,6 @@
 <template>
   <!-- v-slot="{ values }" -->
-   <VeeForm>
+   <VeeForm class="w-100">
       <div
           v-for="{ as, name, label, children, ...attrs } in computedFields"
           :key="name"
@@ -22,7 +22,7 @@
         <ErrorMessage :name="name" />
       </div>
       <div class="d-grid gap-2">
-        <button type="submit">Salvar</button>
+        <button class="btn btn-primary" type="submit">{{ actionLabel }}</button>
       </div>
   </VeeForm>
 </template>
@@ -44,6 +44,11 @@ export default {
     fieldData: {
       type: Object,
       required: false
+    },
+    actionLabel: {
+      type: String,
+      required: false,
+      default: 'Salvar'
     }
   },
   data () {
