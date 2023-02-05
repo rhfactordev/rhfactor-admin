@@ -8,7 +8,7 @@ import AspectService from './aspects'
 
 const API_ENVS = {
   production: 'https://rhfactor-api.herokuapp.com',
-  development: 'http://localhost:5000',
+  development: 'http://localhost:3000',
   local: 'http://localhost:5000'
 }
 
