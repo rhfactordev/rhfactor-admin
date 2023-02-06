@@ -1,14 +1,20 @@
 <template>
+  <modal-factory @close="clear">
+    <sign-form :values="editValue"></sign-form>
+  </modal-factory>
+
   <div class="bg-light">
     <div class="container">
-
       <div class="card">
         <div class="card-body">
+
+          <a @click="addNewItem" class="btn btn-lg btn-primary">Adicionar</a>
+
           <table-list :content="page.content" :current-page="currentPage" :total-pages="page.pages"
                       @nextPage="nextPage"
                       @previewsPage="previewsPage">
             <template v-slot:action="slotAction">
-              <button>Editar {{ slotAction.id }}</button>
+              <button @click="edit(slotAction.id)" >Editar {{ slotAction.id }}</button>
             </template>
           </table-list>
         </div>
@@ -22,10 +28,15 @@
 import { onMounted, ref } from 'vue'
 import TableList from '@/components/TableList/index.vue'
 import service from '@/services'
+import useModal from '@/hooks/useModal'
+import ModalFactory from '@/components/ModalFactory/index.vue'
+import SignForm from '@/views/config/astral/signs/form/index.vue'
 
 export default {
   name: 'ConfigAstralSigns',
   components: {
+    SignForm,
+    ModalFactory,
     TableList
   },
   data () {
@@ -39,7 +50,10 @@ export default {
       }
     }
 
+    const modal = useModal()
     const currentPage = ref(0)
+    const editValue = ref({})
+
     const page = ref({
       content: [],
       pages: 1
@@ -55,6 +69,24 @@ export default {
       await getPage()
     }
 
+    const addNewItem = () => {
+      modal.open()
+    }
+
+    const edit = (item) => {
+      console.log('edit', item)
+      editValue.value = {
+        id: 2,
+        source: 'mars',
+        name: 'Marte'
+      }
+      modal.open()
+    }
+
+    const clear = () => {
+      editValue.value = {}
+    }
+
     onMounted(() => {
       getPage()
     })
@@ -63,7 +95,11 @@ export default {
       page,
       currentPage,
       nextPage,
-      previewsPage
+      previewsPage,
+      addNewItem,
+      edit,
+      editValue,
+      clear
     }
   }
 }

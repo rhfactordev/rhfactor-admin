@@ -1,5 +1,4 @@
 <template>
-  <teleport to="body">
     <div v-if="state.isActive" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: block;" aria-modal="true" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -7,10 +6,10 @@
             <h5 class="modal-title" id="exampleModalLiveLabel">{{ state.title }}</h5>
             <button @click="handleModalToogle({ status: false })" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div>
+          <div class="modal-body" >
+            <slot>
               Aqui vem o valor
-            </div>
+            </slot>
           </div>
           <div class="modal-footer">
             <slot name="footer">
@@ -21,7 +20,6 @@
         </div>
       </div>
     </div>
-  </teleport>
 </template>
 
 <script>
@@ -32,9 +30,7 @@ export default {
   name: 'ModalFactory',
   components: {
   },
-  computed: {
-  },
-  setup () {
+  setup (props, { emit }) {
     const modal = useModal()
     const state = reactive({
       isActive: false,
@@ -59,6 +55,7 @@ export default {
         state.props = payload.props
         state.title = payload.title
       } else {
+        emit('close')
         state.component = {}
         state.props = {}
       }

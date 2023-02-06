@@ -1,5 +1,4 @@
 <template>
-  <modal-factory />
   <header>
     <nav>
       <router-link to="/">Home</router-link> |
@@ -12,7 +11,6 @@
       <router-link to="/config/astral/planets">Planetas</router-link> |
       <router-link to="/config/astral/aspects">Aspectos</router-link> |
     </nav>
-
   </header>
 
   <router-view/>
@@ -20,11 +18,9 @@
 </template>
 
 <script>
-import ModalFactory from '@/components/ModalFactory/index.vue'
 
 export default {
   components: {
-    ModalFactory
   },
   setup () {
   }

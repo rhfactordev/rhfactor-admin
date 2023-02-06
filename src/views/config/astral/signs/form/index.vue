@@ -13,12 +13,13 @@ import * as Yup from 'yup'
 export default {
   name: 'SignForm',
   components: { DynamicForm },
-  setup () {
-    const values = {
-      source: 'virgo',
-      name: 'Virgem'
+  props: {
+    values: {
+      type: Object,
+      default: () => { return {} }
     }
-
+  },
+  setup (props) {
     const schema = {
       fields: [
         {
@@ -35,8 +36,9 @@ export default {
         }
       ]
     }
+
     return {
-      schema, values
+      schema
     }
   }
 }
