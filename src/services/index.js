@@ -27,7 +27,7 @@ httpClient.interceptors.request.use(config => {
 
   const token = localStorage.get()
   if (token) {
-    config.headers.common.Authorization = `Bearer ${token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   }
 
   return config
