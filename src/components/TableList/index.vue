@@ -5,7 +5,7 @@
         <th v-for="(h,i) in computedHeaders" :key="i">
           {{ h }}
         </th>
-        <th v-if="hasAction">Actions</th>
+        <th v-if="hasAction">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -16,10 +16,19 @@
         </slot>
       </tr>
     </tbody>
-    <tfoot v-if="hasPagination">
+    <tfoot>
       <tr>
         <td colspan="100%">
-          <span @click="previewsPage">Anterior</span> | <span @click="nextPage">Próxima</span>
+          <p>Você está na págiana {{currentPage}} de {{totalPages}} </p>
+          <nav v-if="hasPagination" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li @click="previewsPage" class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li @click="nextPage" class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
         </td>
       </tr>
     </tfoot>
@@ -45,10 +54,17 @@ export default {
     keyField: {
       type: String,
       default: () => { return 'id' }
+    },
+    currentPage: {
+      type: Number,
+      default: () => { return 1 }
     }
   },
   computed: {
     computedHeaders () {
+      if (this.content.length === 0) {
+        return ['Sem dados']
+      }
       if (this.headers && this.headers.length > 0) {
         return this.headers
       }
