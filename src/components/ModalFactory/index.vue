@@ -39,17 +39,17 @@ export default {
     })
 
     onMounted(() => {
-      console.log('onMounted', 'handleModalToogle')
+      // console.log('onMounted', 'handleModalToogle')
       modal.listen(handleModalToogle)
     })
 
     onBeforeUnmount(() => {
-      console.log('onBeforeUnmount', 'handleModalToogle')
+      // console.log('onBeforeUnmount', 'handleModalToogle')
       modal.off(handleModalToogle)
     })
 
     function handleModalToogle (payload) {
-      console.log('handleModalToogle', payload)
+      // console.log('handleModalToogle', payload)
       if (payload.status) {
         state.component = payload.component
         state.props = payload.props

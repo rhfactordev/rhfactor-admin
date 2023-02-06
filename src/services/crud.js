@@ -16,5 +16,20 @@ export default httpClient => ({
     return {
       data: response.data
     }
+  },
+
+  create: async ({ resource, payload } = defaultPagination) => {
+    const response = await httpClient.post(`/admin/v1/${resource}`, payload)
+    return {
+      data: response.data
+    }
+  },
+
+  update: async ({ resource, id, payload } = defaultPagination) => {
+    const response = await httpClient.put(`/admin/v1/${resource}/${id}`, payload)
+    return {
+      data: response.data
+    }
   }
+
 })

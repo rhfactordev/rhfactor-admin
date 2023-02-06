@@ -1,14 +1,15 @@
 <template>
 
   <h1>Formulário</h1>
-
-  <dynamic-form :schema="schema" :field-data="values"></dynamic-form>
+  <dynamic-form @submit="submit" :schema="schema" :field-data="values"></dynamic-form>
 
 </template>
 
 <script>
 import DynamicForm from '@/components/DynamicForm/index.vue'
 import * as Yup from 'yup'
+import { computed } from 'vue'
+import services from '@/services'
 
 export default {
   name: 'SignForm',
@@ -19,7 +20,7 @@ export default {
       default: () => { return {} }
     }
   },
-  setup (props) {
+  setup (props, { emit }) {
     const schema = {
       fields: [
         {
@@ -37,8 +38,25 @@ export default {
       ]
     }
 
+    const isEdition = computed(() => props.values != null && props.values.id != null)
+
+    const submit = async (value) => {
+      const { data, errors } = !isEdition.value
+        ? await services.crud.create({ resource: 'signs', payload: value })
+        : await services.crud.update({ resource: 'signs', id: props.values.id, payload: value })
+
+      console.log('retornoSubmit', data, errors)
+
+      if (data) {
+        emit('saved', data)
+        return
+      }
+
+      alert(errors)
+    }
+
     return {
-      schema
+      schema, submit
     }
   }
 }

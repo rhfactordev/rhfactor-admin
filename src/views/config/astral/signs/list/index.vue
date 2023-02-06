@@ -1,6 +1,6 @@
 <template>
   <modal-factory @close="clear">
-    <sign-form :values="editValue"></sign-form>
+    <sign-form :values="editValue" @saved="closeModal" ></sign-form>
   </modal-factory>
 
   <div class="bg-light">
@@ -42,7 +42,7 @@ export default {
   data () {
     const getPage = async () => {
       const { data, errors } = await service.crud.list({
-        resource: 'planets',
+        resource: 'signs',
         page
       })
       if (!errors) {
@@ -73,6 +73,10 @@ export default {
       modal.open()
     }
 
+    const closeModal = () => {
+      modal.close()
+    }
+
     const edit = async (id) => {
       const { data, errors } = await service.crud.findOne({
         resource: 'planets',
@@ -87,6 +91,7 @@ export default {
     }
 
     const clear = () => {
+      console.log('clear')
       editValue.value = {}
     }
 
@@ -102,7 +107,8 @@ export default {
       addNewItem,
       edit,
       editValue,
-      clear
+      clear,
+      closeModal
     }
   }
 }
