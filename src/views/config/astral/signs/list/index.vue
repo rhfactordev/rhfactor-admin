@@ -1,26 +1,25 @@
 <template>
-  <div class='home'>
-    <h1 class="mb-5">Listagem de signos</h1>
+  <div class="bg-light">
+    <div class="container">
 
-    <pre>
-      Current Page {{currentPage}}
-      Total Pages {{pages}}
-      Page {{ content }}
-    </pre>
-
-    <table-list :content="page.content" :current-page="currentPage" :total-pages="page.pages"
-                @nextPage="nextPage"
-                @previewsPage="previewsPage">
-      <template v-slot:action="slotAction">
-        <button>Editar {{ slotAction.id }}</button>
-      </template>
-    </table-list>
+      <div class="card">
+        <div class="card-body">
+          <table-list :content="page.content" :current-page="currentPage" :total-pages="page.pages"
+                      @nextPage="nextPage"
+                      @previewsPage="previewsPage">
+            <template v-slot:action="slotAction">
+              <button>Editar {{ slotAction.id }}</button>
+            </template>
+          </table-list>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import TableList from '@/components/TableList/index.vue'
 import service from '@/services'
 
@@ -43,7 +42,7 @@ export default {
     const currentPage = ref(0)
     const page = ref({
       content: [],
-      pages: 2
+      pages: 1
     })
 
     const nextPage = async () => {
