@@ -10,5 +10,11 @@ export default httpClient => ({
     return {
       data: response.data
     }
+  },
+  findOne: async ({ resource, id } = defaultPagination) => {
+    const response = await httpClient.get(`/admin/v1/${resource}/${id}`)
+    return {
+      data: response.data
+    }
   }
 })

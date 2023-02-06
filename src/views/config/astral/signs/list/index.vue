@@ -73,14 +73,17 @@ export default {
       modal.open()
     }
 
-    const edit = (item) => {
-      console.log('edit', item)
-      editValue.value = {
-        id: 2,
-        source: 'mars',
-        name: 'Marte'
+    const edit = async (id) => {
+      const { data, errors } = await service.crud.findOne({
+        resource: 'planets',
+        id
+      })
+      if (data) {
+        editValue.value = data
+        modal.open()
+        return
       }
-      modal.open()
+      alert(errors)
     }
 
     const clear = () => {
