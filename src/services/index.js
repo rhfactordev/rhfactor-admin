@@ -2,8 +2,7 @@ import axios from 'axios'
 import router from '../router'
 import { setGlobalLoading } from '../store/global'
 import AuthService from './auth'
-import UserService from './user'
-import AspectService from './aspects'
+import CrudService from './crud'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
 const localStorage = useLocalStorage()
@@ -58,6 +57,5 @@ httpClient.interceptors.response.use((response) => {
 
 export default {
   auth: AuthService(httpClient),
-  user: UserService(httpClient),
-  aspect: AspectService(httpClient)
+  crud: CrudService(httpClient)
 }
