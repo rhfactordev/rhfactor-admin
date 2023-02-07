@@ -45,9 +45,7 @@ export default {
       })
 
       if (!errors) {
-        const token = data.access_token
-        localStorage.persist(token)
-
+        localStorage.persist(data)
         router.push({ name: 'dashboard' })
         return
       }

@@ -4,30 +4,75 @@ const LOCAL_STORAGE_KEY = {
   local: 'rhfactor_admin_token_local'
 }
 
-export const menus = [
+export const menuLis = [
+  {
+    name: 'Login',
+    path: '/login',
+    roles: []
+  },
   {
     name: 'Dashboard',
     path: '/dashboard',
-    menu: true
+    roles: ['ADMIN', 'CUSTOMER']
   },
   {
     name: 'Planetas',
     path: '/config/planet',
-    menu: true
+    roles: ['ADMIN']
   },
   {
     name: 'Signos',
     path: '/config/sign',
-    menu: true
+    roles: ['ADMIN']
   },
   {
     name: 'Casas',
     path: '/config/house',
-    menu: true
+    roles: ['ADMIN']
   }, {
     name: 'Aspectos',
     path: '/config/aspect',
-    menu: true
+    roles: ['ADMIN']
+  }, {
+    name: 'Transito',
+    path: '/config/transit',
+    roles: ['ADMIN']
+  }, {
+    name: 'Usuários Admin',
+    path: '/config/admin-user',
+    roles: ['ADMIN']
+  }, {
+    name: 'Customer',
+    path: '/config/customer',
+    roles: ['ADMIN']
+  }, {
+    name: 'Site',
+    path: '/config/site',
+    roles: ['ADMIN']
+  }, {
+    name: 'Domain',
+    path: '/config/domain',
+    roles: ['ADMIN']
+  }, {
+    name: 'Customer User',
+    path: '/config/customer-user',
+    roles: ['ADMIN']
+  }, {
+    name: 'Blog',
+    path: '/config/blog',
+    roles: ['CUSTOMER']
+  }, {
+    name: 'Post',
+    path: '/config/post',
+    roles: ['CUSTOMER']
+  }, {
+    name: 'Tag',
+    path: '/config/tag',
+    roles: ['CUSTOMER']
+  }, {
+    name: 'Categoria',
+    path: '/config/blog-category',
+    roles: ['CUSTOMER']
   }
 
 ]

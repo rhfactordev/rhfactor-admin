@@ -26,7 +26,7 @@ httpClient.interceptors.request.use(config => {
     return config
   }
 
-  const token = localStorage.get()
+  const token = localStorage.getToken()
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
