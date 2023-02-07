@@ -2,6 +2,8 @@ import { defaultPagination } from '@/config'
 
 export default httpClient => ({
   list: async ({ resource, page, size, sort } = defaultPagination) => {
+    console.log('crud.list', resource, page, size, sort)
+
     const query = { page, size }
     if (sort) {
       query.sort = sort

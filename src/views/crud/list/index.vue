@@ -46,19 +46,19 @@ export default {
     }
   },
   setup (props) {
+    const modal = useModal()
+    const currentPage = ref(0)
+    const editValue = ref({})
+
     const getPage = async () => {
       const { data, errors } = await service.crud.list({
         resource: props.resource,
-        page
+        page: currentPage.value
       })
       if (!errors) {
         page.value = data
       }
     }
-
-    const modal = useModal()
-    const currentPage = ref(0)
-    const editValue = ref({})
 
     const page = ref({
       content: [],
@@ -104,6 +104,11 @@ export default {
     watch(
       () => props.resource,
       async () => {
+        page.value = {
+          content: [],
+          pages: 1
+        }
+
         await getPage()
       }
     )

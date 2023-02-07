@@ -22,7 +22,7 @@ const routes = [
 
   {
     path: '/config/:resource',
-    name: 'signs',
+    name: 'crudResource',
     component: () => import('@/views/crud/list/index.vue'),
     props: route => {
       console.log('Crud route', route.params.resource)

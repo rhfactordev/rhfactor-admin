@@ -9,7 +9,7 @@ const localStorage = useLocalStorage()
 
 const API_ENVS = {
   production: 'https://rhfactor-api.herokuapp.com',
-  development: 'http://localhost:3000',
+  development: 'http://localhost:5000', // <-- Mudar esse
   local: 'http://localhost:5000'
 }
 
@@ -20,14 +20,16 @@ const httpClient = axios.create({
 const avoidAuthURis = ['/login']
 
 httpClient.interceptors.request.use(config => {
-  setGlobalLoading(true)
+  // TODO: Adicionar sinal de is loading
+
   if (avoidAuthURis.includes(config.url)) {
     return config
   }
 
   const token = localStorage.get()
   if (token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    console.log('setToken', token)
+    config.headers.authrorization = `Bearer ${token}`
   }
 
   return config

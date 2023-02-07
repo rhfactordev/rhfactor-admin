@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     computedHeaders () {
-      if (this.content.length === 0) {
+      if (this.content && this.content.length === 0) {
         return ['Sem dados']
       }
       if (this.headers && this.headers.length > 0) {

@@ -45,12 +45,14 @@ export default {
       })
 
       if (!errors) {
-        localStorage.persist(data.access_token)
+        const token = data.access_token
+        localStorage.persist(token)
+
         router.push({ name: 'dashboard' })
         return
       }
 
-      console.log(errors)
+      alert(errors)
     }
 
     const schema = {
