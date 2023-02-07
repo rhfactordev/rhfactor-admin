@@ -99,7 +99,8 @@ export default {
   setup () {
     const user = useLocalStorage()
     const roles = user.getRoles()
-    const menus = ref(menuLis.filter(it => it.roles.some(v => roles.includes(v))))
+
+    const menus = ref(menuLis.filter(it => it.roles.length === 0 || it.roles.some(v => roles.includes(v))))
     return {
       menus
     }
