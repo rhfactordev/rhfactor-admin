@@ -1,5 +1,8 @@
 <template>
-  <!-- v-slot="{ values }" -->
+
+  Formulário vem aqui
+  <pre>{{ computedFields }}</pre>
+
    <VeeForm class="w-100">
       <div
           v-for="{ as, name, label, children, ...attrs } in computedFields"
@@ -25,10 +28,13 @@
         <button class="btn btn-primary" type="submit">{{ actionLabel }}</button>
       </div>
   </VeeForm>
+  Final
 </template>
 
 <script>
 import { Field, Form as VeeForm, ErrorMessage } from 'vee-validate'
+import { computed } from 'vue'
+
 export default {
   name: 'DynamicForm',
   components: {
@@ -51,18 +57,24 @@ export default {
       default: 'Salvar'
     }
   },
-  data () {
-    return {
-      loading: false
-    }
-  },
-  computed: {
-    computedFields () {
-      if (this.fieldData == null) {
-        return this.schema.fields
+  setup (props) {
+    const computedFields = computed(
+      () => {
+        return props.schema.fields
+
+        // if (props.fieldData == null) {
+        //   return props.schema.fields
+        // }
+        // return props.schema.fields
+        // return props.schema.fields.map(item => ({ ...item, value: props.fieldData[item.name] }))
       }
-      return this.schema.fields.map(item => ({ ...item, value: this.fieldData[item.name] }))
+    )
+
+    return {
+      loading: false,
+      computedFields
     }
   }
+
 }
 </script>
