@@ -11,18 +11,21 @@ export default function useLocalStorage () {
 
   function hasUser () {
     const user = get()
-    return user != null && user.roles != null && user.roles.length > 0 && user.access_token != null
+    const hasUser = user != null && user.roles != null && user.roles.length > 0 && user.access_token != null
+    console.log('hasUser', hasUser)
+    return hasUser
   }
 
   function getRoles () {
-    if (!hasUser) {
+    console.log('getRoles')
+    if (!hasUser()) {
       return []
     }
     return get().roles
   }
 
   function getToken () {
-    if (!hasUser) {
+    if (!hasUser()) {
       return ''
     }
     return get().access_token
