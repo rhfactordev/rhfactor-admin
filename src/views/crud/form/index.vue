@@ -12,9 +12,13 @@ import { computed } from 'vue'
 import services from '@/services'
 
 export default {
-  name: 'SignForm',
+  name: 'CrudForm',
   components: { DynamicForm },
   props: {
+    resource: {
+      type: String,
+      required: true
+    },
     values: {
       type: Object,
       default: () => { return {} }
@@ -42,8 +46,8 @@ export default {
 
     const submit = async (value) => {
       const { data, errors } = !isEdition.value
-        ? await services.crud.create({ resource: 'signs', payload: value })
-        : await services.crud.update({ resource: 'signs', id: props.values.id, payload: value })
+        ? await services.crud.create({ resource: props.resource, payload: value })
+        : await services.crud.update({ resource: props.resource, id: props.values.id, payload: value })
 
       console.log('retornoSubmit', data, errors)
 

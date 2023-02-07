@@ -1,6 +1,6 @@
 <template>
   <modal-factory @close="clear">
-    <sign-form :values="editValue" @saved="closeModal" ></sign-form>
+    <crud-form :resource="resource" :values="editValue" @saved="closeModal" ></crud-form>
   </modal-factory>
 
   <div class="bg-light">
@@ -25,24 +25,30 @@
 
 <script>
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import TableList from '@/components/TableList/index.vue'
 import service from '@/services'
 import useModal from '@/hooks/useModal'
 import ModalFactory from '@/components/ModalFactory/index.vue'
-import SignForm from '@/views/config/astral/signs/form/index.vue'
+import CrudForm from '@/views/crud/form/index.vue'
 
 export default {
-  name: 'ConfigAstralSigns',
+  name: 'CrudListView',
   components: {
-    SignForm,
+    CrudForm,
     ModalFactory,
     TableList
   },
-  data () {
+  props: {
+    resource: {
+      type: String,
+      required: true
+    }
+  },
+  setup (props) {
     const getPage = async () => {
       const { data, errors } = await service.crud.list({
-        resource: 'signs',
+        resource: props.resource,
         page
       })
       if (!errors) {
@@ -79,7 +85,7 @@ export default {
 
     const edit = async (id) => {
       const { data, errors } = await service.crud.findOne({
-        resource: 'planets',
+        resource: props.resource,
         id
       })
       if (data) {
@@ -94,6 +100,13 @@ export default {
       console.log('clear')
       editValue.value = {}
     }
+
+    watch(
+      () => props.resource,
+      async () => {
+        await getPage()
+      }
+    )
 
     onMounted(() => {
       getPage()

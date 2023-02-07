@@ -19,22 +19,20 @@ const routes = [
       hasAuth: true
     }
   },
+
   {
-    path: '/config/astral/signs',
+    path: '/config/:resource',
     name: 'signs',
-    component: () => import('@/views/config/astral/signs/list/index.vue'),
-    meta: {
-      hasAuth: true
-    }
-  },
-  {
-    path: '/config/astral/signs/add',
-    name: 'signAdd',
-    component: () => import('@/views/config/astral/signs/form/index.vue'),
+    component: () => import('@/views/crud/list/index.vue'),
+    props: route => {
+      console.log('Crud route', route.params.resource)
+      return { resource: route.params.resource }
+    },
     meta: {
       hasAuth: true
     }
   }
+
 ]
 
 const router = createRouter({
