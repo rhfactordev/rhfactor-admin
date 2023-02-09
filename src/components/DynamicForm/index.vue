@@ -1,8 +1,4 @@
 <template>
-
-  Formulário vem aqui
-  <pre>{{ computedFields }}</pre>
-
    <VeeForm class="w-100">
       <div
           v-for="{ as, name, label, children, ...attrs } in computedFields"
@@ -28,11 +24,10 @@
         <button class="btn btn-primary" type="submit">{{ actionLabel }}</button>
       </div>
   </VeeForm>
-  Final
 </template>
 
 <script>
-import { Field, Form as VeeForm, ErrorMessage } from 'vee-validate'
+import { ErrorMessage, Form as VeeForm, Field } from 'vee-validate'
 import { computed } from 'vue'
 
 export default {
@@ -60,13 +55,10 @@ export default {
   setup (props) {
     const computedFields = computed(
       () => {
-        return props.schema.fields
-
-        // if (props.fieldData == null) {
-        //   return props.schema.fields
-        // }
-        // return props.schema.fields
-        // return props.schema.fields.map(item => ({ ...item, value: props.fieldData[item.name] }))
+        if (props.fieldData == null) {
+          return props.schema.fields
+        }
+        return props.schema.fields.map(item => ({ ...item, value: props.fieldData[item.name] }))
       }
     )
 

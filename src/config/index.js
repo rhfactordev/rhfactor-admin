@@ -83,7 +83,8 @@ export const menuLis = [
     meta: {
       hasAuth: true
     }
-  }, {
+  },
+  {
     name: 'Transito',
     path: '/config/transit',
     resource: 'transit',
@@ -109,6 +110,7 @@ export const menuLis = [
       hasAuth: true
     }
   },
+
   {
     name: 'Customer',
     path: '/config/customer',
@@ -122,6 +124,7 @@ export const menuLis = [
       hasAuth: true
     }
   },
+
   {
     name: 'Site',
     path: '/config/site',
@@ -129,17 +132,19 @@ export const menuLis = [
     roles: ['ADMIN'],
     route: true,
     schema: {
-      fields: {
+      fields: [{
         label: 'Nome',
         name: 'name',
         as: 'input',
         rules: Yup.string().required()
-      }
+      }]
     },
     meta: {
       hasAuth: true
     }
-  }, {
+  },
+
+  {
     name: 'Domain',
     path: '/config/domain',
     resource: 'house',
@@ -152,7 +157,6 @@ export const menuLis = [
       hasAuth: true
     }
   }
-
 ]
 
 export const tokenKey = LOCAL_STORAGE_KEY[process.env.NODE_ENV]

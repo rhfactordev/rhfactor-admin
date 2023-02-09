@@ -39,6 +39,8 @@ export default {
     const router = useRouter()
 
     const handleLogin = async (credentials) => {
+      console.log('handleLogin', credentials)
+
       const { data, errors } = await service.auth.login({
         username: credentials.username,
         password: credentials.password

@@ -20,26 +20,7 @@ const routes = [
       hasAuth: true
     }
   },
-  {
-    path: '/config/site/add',
-    name: 'siteAdd',
-    component: () => import('@/views/crud/form/index.vue'),
-    props: {
-      resource: 'site',
-      schema: {
-        fields: {
-          label: 'Nome',
-          name: 'name',
-          as: 'input'
-          // rules: Yup.string().required()
-        }
-      }
-    },
-    meta: {
-      hasAuth: true
-    }
-  },
-  ...menuLis.filter(it => it.route === true)
+  ...menuLis.filter(it => it.route != null && it.route === true)
     .map(it => ({
       name: it.name,
       path: it.path,

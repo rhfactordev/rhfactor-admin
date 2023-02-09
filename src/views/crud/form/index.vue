@@ -1,7 +1,6 @@
 <template>
 
-  <h1>Formulário</h1>
-
+  <h1>Formulário s</h1>
   <dynamic-form @submit="submit" :schema="schema" :field-data="values"></dynamic-form>
 
 </template>
@@ -32,6 +31,7 @@ export default {
     const isEdition = computed(() => props.values != null && props.values.id != null)
 
     const submit = async (value) => {
+      console.log('submit', value)
       const { data, errors } = !isEdition.value
         ? await services.crud.create({ resource: props.resource, payload: value })
         : await services.crud.update({ resource: props.resource, id: props.values.id, payload: value })
