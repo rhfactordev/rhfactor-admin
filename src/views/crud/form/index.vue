@@ -1,13 +1,12 @@
 <template>
 
-  <h1>Formulário</h1>
+  <h1>Formulário s</h1>
   <dynamic-form @submit="submit" :schema="schema" :field-data="values"></dynamic-form>
 
 </template>
 
 <script>
 import DynamicForm from '@/components/DynamicForm/index.vue'
-import * as Yup from 'yup'
 import { computed } from 'vue'
 import services from '@/services'
 
@@ -19,37 +18,23 @@ export default {
       type: String,
       required: true
     },
+    schema: {
+      type: Object,
+      require: true
+    },
     values: {
       type: Object,
       default: () => { return {} }
     }
   },
   setup (props, { emit }) {
-    const schema = {
-      fields: [
-        {
-          label: 'Nome',
-          name: 'name',
-          as: 'input',
-          rules: Yup.string().required()
-        },
-        {
-          label: 'Slug',
-          name: 'source',
-          as: 'input',
-          rules: Yup.string().required()
-        }
-      ]
-    }
-
     const isEdition = computed(() => props.values != null && props.values.id != null)
 
     const submit = async (value) => {
+      console.log('submit', value)
       const { data, errors } = !isEdition.value
         ? await services.crud.create({ resource: props.resource, payload: value })
         : await services.crud.update({ resource: props.resource, id: props.values.id, payload: value })
-
-      console.log('retornoSubmit', data, errors)
 
       if (data) {
         emit('saved', data)
@@ -60,7 +45,7 @@ export default {
     }
 
     return {
-      schema, submit
+      submit
     }
   }
 }

@@ -1,8 +1,25 @@
+import * as Yup from 'yup'
+
 const LOCAL_STORAGE_KEY = {
   production: 'rhfactor_admin_token_prod',
   development: 'rhfactor_admin_token_dev',
   local: 'rhfactor_admin_token_local'
 }
+
+const nameSlug = [
+  {
+    label: 'Nome',
+    name: 'name',
+    as: 'input',
+    rules: Yup.string().required()
+  },
+  {
+    label: 'Slug',
+    name: 'source',
+    as: 'input',
+    rules: Yup.string().required()
+  }
+]
 
 export const menuLis = [
   {
@@ -18,63 +35,128 @@ export const menuLis = [
   {
     name: 'Planetas',
     path: '/config/planet',
-    roles: ['ADMIN']
+    roles: ['ADMIN'],
+    route: true,
+    resource: 'planet',
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
   },
   {
     name: 'Signos',
     path: '/config/sign',
-    roles: ['ADMIN']
+    resource: 'sign',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
   },
   {
     name: 'Casas',
     path: '/config/house',
-    roles: ['ADMIN']
-  }, {
+    resource: 'house',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
     name: 'Aspectos',
     path: '/config/aspect',
-    roles: ['ADMIN']
-  }, {
+    resource: 'aspect',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
     name: 'Transito',
     path: '/config/transit',
-    roles: ['ADMIN']
-  }, {
+    resource: 'transit',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
     name: 'Usuários Admin',
     path: '/config/admin-user',
-    roles: ['ADMIN']
-  }, {
+    resource: 'admin-user',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+
+  {
     name: 'Customer',
     path: '/config/customer',
-    roles: ['ADMIN']
-  }, {
+    resource: 'house',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+
+  {
     name: 'Site',
     path: '/config/site',
-    roles: ['ADMIN']
-  }, {
+    resource: 'site',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: [{
+        label: 'Nome',
+        name: 'name',
+        as: 'input',
+        rules: Yup.string().required()
+      }]
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+
+  {
     name: 'Domain',
     path: '/config/domain',
-    roles: ['ADMIN']
-  }, {
-    name: 'Customer User',
-    path: '/config/customer-user',
-    roles: ['ADMIN']
-  }, {
-    name: 'Blog',
-    path: '/config/blog',
-    roles: ['CUSTOMER']
-  }, {
-    name: 'Post',
-    path: '/config/post',
-    roles: ['CUSTOMER']
-  }, {
-    name: 'Tag',
-    path: '/config/tag',
-    roles: ['CUSTOMER']
-  }, {
-    name: 'Categoria',
-    path: '/config/blog-category',
-    roles: ['CUSTOMER']
+    resource: 'house',
+    roles: ['ADMIN'],
+    route: true,
+    schema: {
+      fields: nameSlug
+    },
+    meta: {
+      hasAuth: true
+    }
   }
-
 ]
 
 export const tokenKey = LOCAL_STORAGE_KEY[process.env.NODE_ENV]

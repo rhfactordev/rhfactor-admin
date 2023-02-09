@@ -1,6 +1,6 @@
 <template>
   <modal-factory @close="clear">
-    <crud-form :resource="resource" :values="editValue" @saved="closeModal" ></crud-form>
+    <crud-form :resource="resource" :schema="schema" :values="editValue" @saved="closeModal" ></crud-form>
   </modal-factory>
 
   <div class="bg-light">
@@ -43,6 +43,10 @@ export default {
     resource: {
       type: String,
       required: true
+    },
+    schema: {
+      type: Object,
+      require: true
     }
   },
   setup (props) {
