@@ -145,18 +145,27 @@ export const menuLis = [
   },
 
   {
-    name: 'Domain',
-    path: '/config/domain',
-    resource: 'house',
+    name: 'SiteDomain',
+    path: '/config/site/:id/domain',
+    resource: 'site',
     roles: ['ADMIN'],
     route: true,
     schema: {
-      fields: nameSlug
+      fields: [{
+        label: 'Nome',
+        name: 'name',
+        as: 'input',
+        rules: Yup.string().required()
+      }]
     },
     meta: {
       hasAuth: true
+    },
+    props: route => {
+      return { resource: `site/${route.params.id}/domain`, schema: 'echam' }
     }
   }
+
 ]
 
 export const tokenKey = LOCAL_STORAGE_KEY[process.env.NODE_ENV]
