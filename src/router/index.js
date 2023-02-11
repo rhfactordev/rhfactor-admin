@@ -26,24 +26,16 @@ const routes = [
       path: it.path,
       component: () => import('@/views/crud/list/index.vue'),
       props: route => {
+        if (it.props != null) {
+          return it.props(route)
+        }
         return { resource: it.resource, schema: it.schema }
       }
     }))
 
-  // {
-  //   path: '/config/:resource',
-  //   name: 'crudResource',
-  //   component: () => import('@/views/crud/list/index.vue'),
-  //   props: route => {
-  //     console.log('Crud route', route.params.resource)
-  //     return { resource: route.params.resource }
-  //   },
-  //   meta: {
-  //     hasAuth: true
-  //   }
-  // }
-
 ]
+
+console.log(routes)
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
