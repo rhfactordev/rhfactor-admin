@@ -137,22 +137,9 @@ export const menuLis = [
         name: 'name',
         as: 'input',
         rules: Yup.string().required()
-      }]
-    },
-    meta: {
-      hasAuth: true
-    }
-  },
-
-  {
-    name: 'SiteDomain',
-    path: '/config/site/:id/domain',
-    resource: 'site',
-    roles: ['ADMIN'],
-    route: true,
-    schema: {
-      fields: [{
-        label: 'Nome',
+      },
+      {
+        label: 'Domain',
         name: 'name',
         as: 'input',
         rules: Yup.string().required()
@@ -160,9 +147,6 @@ export const menuLis = [
     },
     meta: {
       hasAuth: true
-    },
-    props: route => {
-      return { resource: `site/${route.params.id}/domain`, schema: 'echam' }
     }
   }
 
