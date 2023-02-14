@@ -140,7 +140,7 @@ export const menuLis = [
       },
       {
         label: 'Domain',
-        name: 'name',
+        name: 'domains',
         as: 'input',
         rules: Yup.string().required()
       }]
