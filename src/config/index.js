@@ -159,21 +159,38 @@ export const menuList = [
     schema: {
       fields: [
         {
+          label: 'Blog',
+          name: 'blog',
+          as: 'input',
+          rules: Yup.string().required()
+        },
+        {
+          label: 'Categoria',
+          name: 'category',
+          as: 'input',
+          rules: Yup.string().required()
+        },
+        {
           label: 'Titulo',
           name: 'title',
           as: 'input',
           rules: Yup.string().required()
-        }, {
-          label: 'Conteúdo',
-          name: 'content',
-          as: 'tiptap',
+        },
+        {
+          label: 'URL',
+          name: 'slug',
+          as: 'input',
           rules: Yup.string().required()
+        },
+        {
+          label: 'Thumb',
+          name: 'thumb',
+          as: 'input'
         },
         {
           label: 'Conteúdo',
           name: 'content',
-          as: 'textarea',
-          rules: Yup.string().required()
+          as: 'textarea'
         }
       ]
     },

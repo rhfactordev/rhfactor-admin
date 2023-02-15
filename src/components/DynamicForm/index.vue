@@ -5,7 +5,7 @@
           :key="name"
           class="mb-3"
       >
-        <label :for="name" class="form-label">{{ label }}</label>
+        <label :for="name" class="form-label">{{ label }} v: {{ value }}</label>
         <Field :as="as" class="form-control" :id="name" :name="name" v-bind="attrs">
           <template v-if="children && children.length">
             <component
@@ -26,47 +26,35 @@
   </VeeForm>
 </template>
 
-<script>
-import { ErrorMessage, Form as VeeForm, Field } from 'vee-validate'
-import { computed } from 'vue'
+<script setup>
+import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate'
+import { computed, defineProps } from 'vue'
 
-export default {
-  name: 'DynamicForm',
-  components: {
-    VeeForm,
-    Field,
-    ErrorMessage
+const props = defineProps({
+  schema: {
+    type: Object,
+    required: true
   },
-  props: {
-    schema: {
-      type: Object,
-      required: true
-    },
-    fieldData: {
-      type: Object,
-      required: false
-    },
-    actionLabel: {
-      type: String,
-      required: false,
-      default: 'Salvar'
-    }
+  fieldData: {
+    type: Object,
+    required: false
   },
-  setup (props) {
-    const computedFields = computed(
-      () => {
-        if (props.fieldData == null) {
-          return props.schema.fields
-        }
-        return props.schema.fields.map(item => ({ ...item, value: props.fieldData[item.name] }))
-      }
-    )
-
-    return {
-      loading: false,
-      computedFields
-    }
+  actionLabel: {
+    type: String,
+    required: false,
+    default: 'Salvar'
   }
+})
 
-}
+const computedFields = computed(
+  () => {
+    if (props.fieldData == null) {
+      return props.schema.fields.map(item => {
+        return { ...item, value: item.value == null ? '' : item.value, none: true }
+      })
+    }
+    return props.schema.fields.map(item => ({ ...item, value: props.fieldData[item.name] }))
+  }
+)
+
 </script>
