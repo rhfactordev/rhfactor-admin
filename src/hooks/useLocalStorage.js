@@ -29,5 +29,12 @@ export default function useLocalStorage () {
     return get().access_token
   }
 
-  return { persist, get, getToken, getRoles }
+  function getLastPublishDate () {
+    return JSON.parse(window.localStorage.getItem('publish_date'))
+  }
+  function setLastPublishDate (date) {
+    return window.localStorage.setItem('publish_date', JSON.parse(date))
+  }
+
+  return { persist, get, getToken, getRoles, getLastPublishDate, setLastPublishDate }
 }

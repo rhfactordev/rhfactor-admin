@@ -4,6 +4,7 @@ import { setGlobalLoading } from '../store/global'
 import AuthService from './auth'
 import CrudService from './crud'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import SiteService from './site'
 
 const localStorage = useLocalStorage()
 
@@ -44,12 +45,14 @@ httpClient.interceptors.response.use((response) => {
     error.request.status === 500
 
   if (canThrowAnError) {
+    console.log('canThrowAnError', canThrowAnError)
     setGlobalLoading(false)
     throw new Error(error.message)
   }
 
   if (error.response.status === 401) {
-    router.push({ name: 'Home' })
+    console.log('errorAuth')
+    router.push({ name: 'Login' })
   }
 
   setGlobalLoading(false)
@@ -58,5 +61,6 @@ httpClient.interceptors.response.use((response) => {
 
 export default {
   auth: AuthService(httpClient),
-  crud: CrudService(httpClient)
+  crud: CrudService(httpClient),
+  site: SiteService(httpClient)
 }
