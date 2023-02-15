@@ -52,7 +52,7 @@ httpClient.interceptors.response.use((response) => {
 
   if (error.response.status === 401) {
     console.log('errorAuth')
-    router.push({ name: 'Login' })
+    router.push({ name: 'login' })
   }
 
   setGlobalLoading(false)
