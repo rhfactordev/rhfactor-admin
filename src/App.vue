@@ -90,7 +90,7 @@
 </style>
 
 <script>
-import { menuLis } from '@/config'
+import { menuList } from '@/config'
 import { ref } from 'vue'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
@@ -100,7 +100,7 @@ export default {
     const user = useLocalStorage()
     const roles = user.getRoles()
 
-    const menus = ref(menuLis.filter(it => (it.roles == null || it.roles.length === 0) || it.roles.some(v => roles.includes(v))))
+    const menus = ref(menuList.filter(it => (it.roles == null || it.roles.length === 0) || it.roles.some(v => roles.includes(v))))
     return {
       menus
     }

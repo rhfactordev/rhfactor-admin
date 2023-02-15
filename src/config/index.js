@@ -21,7 +21,7 @@ const nameSlug = [
   }
 ]
 
-export const menuLis = [
+export const menuList = [
   {
     name: 'Login',
     path: '/login',
@@ -144,6 +144,38 @@ export const menuLis = [
         as: 'input',
         rules: Yup.string().required()
       }]
+    },
+    meta: {
+      hasAuth: true
+    }
+  },
+
+  {
+    name: 'Post',
+    path: '/config/post',
+    resource: 'blog/1/entry',
+    roles: ['ADMIN', 'CUSTOMER'],
+    route: true,
+    schema: {
+      fields: [
+        {
+          label: 'Titulo',
+          name: 'title',
+          as: 'input',
+          rules: Yup.string().required()
+        }, {
+          label: 'Conteúdo',
+          name: 'content',
+          as: 'tiptap',
+          rules: Yup.string().required()
+        },
+        {
+          label: 'Conteúdo',
+          name: 'content',
+          as: 'textarea',
+          rules: Yup.string().required()
+        }
+      ]
     },
     meta: {
       hasAuth: true

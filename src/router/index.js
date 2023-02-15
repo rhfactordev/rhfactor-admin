@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { menuLis } from '@/config'
+import { menuList } from '@/config'
 
 const routes = [
   {
@@ -20,7 +20,7 @@ const routes = [
       hasAuth: true
     }
   },
-  ...menuLis.filter(it => it.route != null && it.route === true)
+  ...menuList.filter(it => it.route != null && it.route === true)
     .map(it => ({
       name: it.name,
       path: it.path,
