@@ -148,55 +148,6 @@ export const menuList = [
     meta: {
       hasAuth: true
     }
-  },
-
-  {
-    name: 'Post',
-    path: '/config/post',
-    resource: 'blog/1/entry',
-    roles: ['ADMIN', 'CUSTOMER'],
-    route: true,
-    schema: {
-      fields: [
-        {
-          label: 'Blog',
-          name: 'blog',
-          as: 'input',
-          rules: Yup.string().required()
-        },
-        {
-          label: 'Categoria',
-          name: 'category',
-          as: 'input',
-          rules: Yup.string().required()
-        },
-        {
-          label: 'Titulo',
-          name: 'title',
-          as: 'input',
-          rules: Yup.string().required()
-        },
-        {
-          label: 'URL',
-          name: 'slug',
-          as: 'input',
-          rules: Yup.string().required()
-        },
-        {
-          label: 'Thumb',
-          name: 'thumb',
-          as: 'input'
-        },
-        {
-          label: 'Conteúdo',
-          name: 'content',
-          as: 'textarea'
-        }
-      ]
-    },
-    meta: {
-      hasAuth: true
-    }
   }
 
 ]

@@ -20,6 +20,39 @@ const routes = [
       hasAuth: true
     }
   },
+  {
+    path: '/blog/post',
+    name: 'addPost',
+    component: () => import('@/views/blog/list/index.vue'),
+    meta: {
+      hasAuth: true
+    },
+    props: route => {
+      return { id: null }
+    }
+  },
+  {
+    path: '/blog/post/add',
+    name: 'listPost',
+    component: () => import('@/views/blog/form/index.vue'),
+    meta: {
+      hasAuth: true
+    },
+    props: route => {
+      return { id: null }
+    }
+  },
+  {
+    path: '/blog/post/:id/edit',
+    name: 'editPost',
+    component: () => import('@/views/blog/form/index.vue'),
+    meta: {
+      hasAuth: true
+    },
+    props: route => {
+      return { id: route.params.id }
+    }
+  },
   ...menuList.filter(it => it.route != null && it.route === true)
     .map(it => ({
       name: it.name,
