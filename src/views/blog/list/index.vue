@@ -5,6 +5,7 @@
   <q-table
     title="Entradas do blog"
     :rows="page.content"
+    :columns="columns"
     :pagination="initialPagination"
     :hide-pagination="true"
     selection="single"
@@ -44,9 +45,39 @@ const currentPage = ref(0)
 const initialPagination = {
   sortBy: 'id',
   descending: false,
-  page: 0,
-  rowsPerPage: 10
+  page: 0
+  // rowsPerPage: 10
 }
+
+const columns = [
+  {
+    name: 'id',
+    required: true,
+    label: 'Id',
+    align: 'left',
+    field: row => row.id
+  },
+  {
+    name: 'category',
+    required: true,
+    label: 'Categoria',
+    align: 'left',
+    field: row => row.category.name
+  },
+  {
+    name: 'title',
+    required: true,
+    label: 'Título',
+    align: 'left',
+    field: row => row.title
+  }, {
+    name: 'slug',
+    required: true,
+    label: 'URL',
+    align: 'left',
+    field: row => row.slug
+  }
+]
 
 const isEdition = computed(() => selected.value != null && selected.value.length)
 
