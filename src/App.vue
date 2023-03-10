@@ -24,6 +24,12 @@
                 {{ menu.name }}
               </router-link>
             </li>
+            <li  class="nav-item">
+              <router-link to="/blog/post" class="nav-link active" aria-current="page" href="#">
+                <span data-feather="home" class="align-text-bottom"></span>
+                Blog
+              </router-link>
+            </li>
           </ul>
 
         </div>
