@@ -152,13 +152,11 @@ const props = defineProps({
 
 const router = useRouter()
 const resource = 'blog/1/entry'
+
+// Refs
 const loadingCategories = ref(false)
 const loadingSubmit = ref(false)
-
-const loading = computed(() => {
-  return loadingCategories.value || loadingSubmit.value
-})
-
+const options = ref([])
 const post = ref({
   category: null,
   blog: 1,
@@ -168,44 +166,57 @@ const post = ref({
   thumb: ''
 })
 
+// Computed
+const isEdition = computed(() => props.id != null && props.id != null)
+const loading = computed(() => loadingCategories.value || loadingSubmit.value)
+
+// Métodos
 const loadCategroies = async () => {
-  options.value = [
-    { value: 1, label: 'Mídia / Notícia' }
-  ]
+  if (loadingCategories.value) {
+    return
+  }
+
+  loadingCategories.value = true
+
+  const { data } = await service.blog.categories({
+    blogid: 1
+  })
+  options.value = data
+
+  loadingCategories.value = false
 }
 
-const options = ref([])
-
-const isEdition = computed(() => props.id != null && props.id != null)
-
-onMounted(async () => {
-  loadCategroies()
-
-  if (props.id != null && props.id > 0) {
-    console.log('Carregar post')
-    if (loading.value) {
-      return
-    }
-
-    loading.value = true
-
-    const { data, errors } = await service.crud.findOne({
-      resource,
-      id: props.id
-    })
-    if (data) {
-      post.value = data
-      return
-    }
-    alert(errors)
-    loading.value = false
+const loadEntry = async (entryId) => {
+  if (loading.value) {
+    return
   }
-})
+
+  loading.value = true
+  const { data, errors } = await service.crud.findOne({
+    resource,
+    id: props.id
+  })
+  loading.value = false
+
+  if (data) {
+    console.log('registro entrontraco', data)
+    post.value = data
+    return
+  }
+  alert(errors)
+}
 
 const onSubmit = async (e) => {
+  // Se tiver carregando sair
+  if (loading.value) {
+    return
+  }
+
+  loading.value = true
   const { data, errors } = !isEdition.value
     ? await service.crud.create({ resource, payload: post.value })
     : await service.crud.update({ resource, id: props.id, payload: post.value })
+  loading.value = false
 
   if (data) {
     router.push('/blog/post')
@@ -213,5 +224,13 @@ const onSubmit = async (e) => {
 
   alert(errors)
 }
+
+onMounted(async () => {
+  await loadCategroies()
+
+  if (props.id != null && props.id > 0) {
+    await loadEntry(props.id)
+  }
+})
 
 </script>

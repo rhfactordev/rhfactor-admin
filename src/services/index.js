@@ -5,6 +5,7 @@ import AuthService from './auth'
 import CrudService from './crud'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import SiteService from './site'
+import BlogService from './blog'
 
 const localStorage = useLocalStorage()
 
@@ -62,5 +63,6 @@ httpClient.interceptors.response.use((response) => {
 export default {
   auth: AuthService(httpClient),
   crud: CrudService(httpClient),
-  site: SiteService(httpClient)
+  site: SiteService(httpClient),
+  blog: BlogService(httpClient)
 }
